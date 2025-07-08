@@ -1,0 +1,33 @@
+﻿<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">مطعم أونلاين</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house-door me-1"></i> الرئيسية</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/menu"><i class="bi bi-list-ul me-1"></i> المنيو</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-envelope me-1"></i> تواصل معنا</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" @onclick="Logout"><i class="bi bi-box-arrow-right"></i> <span class="d-inline">تسجيل الخروج</span></a>
+                </li>
+                @if (userOut.Role != "User")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> <span class="d-inline">لوحة التحكم</span></a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,42 @@
+﻿@page "/dashboard"
+@layout MainLayout
+<div class="container">
+    <div class="dashboard-header">
+      <h1><i class="bi bi-speedometer2"></i> لوحة تحكم المطعم</h1>
+      <p class="mt-2">مرحباً بك، مدير النظام 👋</p>
+    </div>
+</div>
+
+    <div class="row text-center g-4">
+      @if(@IsManager)
+      {
+        <div class="col-md-4">
+            <div class="card p-4">
+                <div class="card-icon"><i class="bi bi-people"></i></div>
+                <h4 class="card-title">المستخدمون</h4>
+                <p class="card-text">إدارة المستخدمين والتحكم بصلاحياتهم.</p>
+            </div>
+        </div>
+      }
+      <div class="col-md-4">
+        <div class="card p-4">
+          <div class="card-icon"><i class="bi bi-card-list"></i></div>
+          <h4 class="card-title">الطلبات</h4>
+          <p class="card-text">عرض الطلبات الجديدة وإدارتها بسهولة.</p>
+        </div>
+      </div>
+      <div @onclick="NavToMenuMangment" class="col-md-4">
+            <div class="card p-4">
+                <div class="card-icon"><i class="bi bi-basket"></i></div>
+                <h4 class="card-title">إدارة المنيو</h4>
+                <p class="card-text">إضافة، تعديل، أو حذف الأطباق.</p>
+            </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4">
+          <div class="card-icon"><i class="bi bi-gear"></i></div>
+          <h4 class="card-title">الإعدادات</h4>
+          <p class="card-text">تعديل إعدادات النظام والمطعم.</p>
+        </div>
+      </div>
+    </div>

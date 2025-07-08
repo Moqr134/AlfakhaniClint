@@ -1,0 +1,58 @@
+﻿body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.login-box {
+    max-width: 400px;
+    margin: auto;
+    padding: 30px;
+    background-color: #1e402f; /* أخضر داكن */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.form-label {
+    color: #b2ffb8; /* لون أخضر فاتح للنص */
+}
+
+.form-control {
+    background-color: #2e4d3a;
+    border: none;
+    color: #e3ffe9;
+}
+
+    .form-control::placeholder {
+        color: #a4d4b1;
+    }
+
+    .form-control:focus {
+        background-color: #2e4d3a;
+        color: #e3ffe9;
+        box-shadow: 0 0 0 0.2rem rgba(178, 255, 184, 0.25);
+    }
+
+.btn-dark-custom {
+    background-color: #2d6a4f;
+    color: #ffffff;
+    border: none;
+}
+
+    .btn-dark-custom:hover {
+        background-color: #40916c;
+    }
+
+.links {
+    margin-top: 15px;
+}
+
+    .links a {
+        color: #a8f5c6;
+        text-decoration: none;
+    }
+
+        .links a:hover {
+            text-decoration: underline;
+            color: #d4fcdc;
+        }

@@ -1,0 +1,45 @@
+﻿@page "/menu"  
+@layout MainLayout  
+<div class="container">  
+    <h1>قائمة الطعام</h1>  
+
+    <!-- قسم الأطباق الرئيسية -->  
+    @foreach(var category in Categoris)
+    {
+        <section class="menu-section">
+            <h2 class="text-center mb-4">@category.CategoryName</h2>
+            <div class="row g-4">
+                @if (Items.Count == 0)
+                {
+                    <p class="card-text">لا توجد وجبات لعرضها حاليا</p>
+                }
+                else
+                {
+                    foreach (var item in Items)
+                    {
+                        if (item.CategoryId == category.Id)
+                        {
+                            <div class="col-md-4">
+                                <div class="card menu-card">
+                                    <img src="@item.ItemImage" alt="طبق رئيسي">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@item.ItemName</h5>
+                                        <p class="card-text">@item.Description</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="price">@item.Price د.ع</span>
+                                            <button @onclick="() => Add(item)" class="btn add-btn">أضف للسلة</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </section>
+    }
+</div>
+<div @onclick="cart" id="fab-cart" title="اذهب إلى السلة">
+    <i class="bi bi-cart-fill"></i>
+    <div id="fab-counter">@Counter</div>
+</div>

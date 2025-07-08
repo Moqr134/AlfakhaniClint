@@ -1,0 +1,39 @@
+﻿@page "/regester"
+<div class="login-box text-start">
+    <h2 class="mb-4 text-center" style="color:#d4fcdc">انشاء حساب</h2>
+    <form>
+        <div id="hide">
+            <div class="mb-3">
+                <label for="name" class="form-label">الاسم الكامل</label>
+                <input type="text" @bind="user.Username" class="form-control" id="name" placeholder="your name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">البريد الإلكتروني</label>
+                <input type="email" @bind="user.Email" class="form-control" id="email" placeholder="example@email.com">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">كلمة المرور</label>
+                <input type="password" @bind="user.Password" class="form-control" id="password" placeholder="••••••">
+            </div>
+            <div class="mb-3">
+                <label for="ConformPassword" class="form-label">تأكيد كلمة المرور</label>
+                <input type="password" @bind="ConformPassword" class="form-control" id="ConformPassword" placeholder="••••••">
+            </div>
+            <div class="d-grid">
+                <button type="button" @onclick="HandelRegestar" class="btn btn-dark-custom">انشاء حساب</button>
+            </div>
+        </div>
+        <div id="show" style="display:none">
+            <div class="mb-3">
+                <label for="ConformPassword" class="form-label">كود التحقق</label>
+                <input type="password" @bind="user.code" class="form-control" id="ConformCode" placeholder="123456">
+            </div>
+            <div class="d-grid">
+                <button type="button" @onclick="HandelConform" class="btn btn-dark-custom">تأكيد الحساب</button>
+            </div>
+        </div>
+    </form>
+    <div id="hide" class="links text-start mt-3">
+        <a href="login"> لديك حساب؟ تسجيل الدخول</a>
+    </div>
+</div>

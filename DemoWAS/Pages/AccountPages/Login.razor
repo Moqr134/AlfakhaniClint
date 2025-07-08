@@ -1,0 +1,21 @@
+﻿@page "/login"
+<div class="login-box text-start">
+    <h2 class="mb-4 text-center" style="color:#d4fcdc">تسجيل الدخول</h2>
+    <form>
+        <div class="mb-3">
+            <label for="email" class="form-label">البريد الإلكتروني</label>
+            <input type="email" @bind="user.Email" class="form-control" id="email" placeholder="example@email.com">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">كلمة المرور</label>
+            <input type="password" @bind="user.Password" class="form-control" id="password" placeholder="••••••">
+        </div>
+        <div class="d-grid">
+            <button type="button" @onclick="HandelLogin" class="btn btn-dark-custom">تسجيل الدخول</button>
+        </div>
+    </form>
+    <div class="links text-start mt-3">
+        <a href="#">نسيت كلمة المرور؟</a><br>
+        <a href="regester">إنشاء حساب جديد</a>
+    </div>
+</div>

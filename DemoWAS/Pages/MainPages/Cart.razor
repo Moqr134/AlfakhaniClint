@@ -1,0 +1,42 @@
+﻿@page "/cart"
+@using DemoWAS.Service
+@layout MainLayout
+@inject CartService CartService
+<div class="cart-container">
+    <h1>سلة الطلبات</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>المنتج</th>
+                <th>الكمية</th>
+                <th>سعر الوحدة</th>
+                <th>الإجمالي</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(CartService.Items.Count == 0)
+            {
+                <tr>
+                    <td colspan="4" class="text-center">لا توجد عناصر في السلة</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in CartService.Items)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price د.ع</td>
+                        <td>@item.TotalPrice د.ع</td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td colspan="3" style="text-align: right;">المجموع الكلي:</td>
+                <td>@CartService.TotalPrice د.ع</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn-checkout">إتمام الطلب</button>
+</div>

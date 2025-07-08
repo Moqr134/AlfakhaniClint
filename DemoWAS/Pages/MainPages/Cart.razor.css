@@ -1,0 +1,91 @@
+﻿h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    animation: slideDown 1s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.cart-container {
+    background-color: #1E402F;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+table {
+    width: 100%;
+    color: #f0f0f0;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+thead th {
+    border-bottom: 2px solid #EAD196;
+    padding-bottom: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+tbody tr {
+    background-color: #265939;
+    border-radius: 10px;
+}
+
+    tbody tr td {
+        padding: 15px 10px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1rem;
+    }
+
+    tbody tr:last-child td {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #EAD196;
+    }
+
+.btn-checkout {
+    display: block;
+    margin: 20px auto 0 auto;
+    background-color: #EAD196;
+    color: #1E402F;
+    font-weight: 700;
+    border-radius: 30px;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+}
+
+    .btn-checkout:hover {
+        background-color: #d4b76c;
+        color: white;
+        cursor: pointer;
+        transform: scale(1.05);
+    }

@@ -1,0 +1,36 @@
+﻿@page "/updateitem/{id:int}"
+<div class="container">
+    <div class="form-container">
+        <h3 class="text-center mb-4"><i class="bi bi-plus-circle"></i> تعديل بيانات طبق</h3>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">اسم الطبق</label>
+                <input type="text" class="form-control" @bind="item.ItemName" id="name" placeholder="مثال: بيتزا دجاج">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">الوصف</label>
+                <textarea class="form-control" @bind="item.Description" id="description" rows="3" placeholder="اكتب وصفاً مختصراً للطبق"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">السعر (د.ع)</label>
+                <input type="number" class="form-control" @bind="item.Price" id="price" placeholder="مثال: 9000">
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">اختر الفئة</label>
+                <select class="form-select" @bind="item.CategoryId" id="category">
+                    @foreach (var category in Categories)
+                    {
+                        <option @key="@category.Id" value="@category.Id">@category.CategoryName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="imageFile" class="form-label">تحميل صورة الطبق</label>
+                <InputFile class="form-control" OnChange="ImageSelected" id="imageFile" accept="image/*"></InputFile>
+            </div>
+            <div class="text-center">
+                <button type="button" @onclick="()=>UpdateItemInfo(item)" class="btn btn-submit px-5">تعديل الطبق</button>
+            </div>
+        </form>
+    </div>
+</div>

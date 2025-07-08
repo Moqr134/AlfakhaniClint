@@ -1,0 +1,15 @@
+
+.custom-navbar {
+    background-color: #1E402F !important;
+}
+
+    .custom-navbar .nav-link,
+    .custom-navbar .navbar-brand,
+    .custom-navbar .navbar-toggler-icon {
+        color: #ffffff !important;
+        font-size: 1.15rem;
+    }
+
+        .custom-navbar .nav-link:hover {
+            color: #c0ffdd !important;
+        }

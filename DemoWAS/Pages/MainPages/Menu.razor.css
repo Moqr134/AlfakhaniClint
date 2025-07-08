@@ -1,0 +1,124 @@
+﻿h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    animation: slideDown 1s ease;
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.menu-section {
+    padding: 40px 0;
+}
+
+.menu-card {
+    background-color: #1E402F;
+    color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    animation: fadeInCard 1s ease;
+}
+
+@keyframes fadeInCard {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+    .menu-card:hover {
+        transform: scale(1.02);
+    }
+
+    .menu-card img {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .menu-card .card-body {
+        padding: 20px;
+    }
+
+    .menu-card .card-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    .menu-card .card-text {
+        font-size: 1rem;
+        margin: 10px 0;
+    }
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #EAD196;
+}
+
+.add-btn {
+    background-color: #EAD196;
+    color: #1E402F;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+    .add-btn:hover {
+        background-color: #d4b76c;
+        color: white;
+    }
+#fab-cart {
+    position: fixed;
+    bottom: 25px;
+    left: 25px; /* لأن اتجاه الصفحة rtl */
+    background-color: #EAD196;
+    color: #1E402F;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+    #fab-cart:hover {
+        background-color: #d4b76c;
+        color: white;
+    }
+
+#fab-counter {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ff3b3b;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
