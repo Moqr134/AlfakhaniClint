@@ -1,6 +1,6 @@
 ﻿namespace SherdProject.DTO
 {
-    public class CategoryDto
+    public class ItemCategoryOut
     {
         public int Id { get; set; }
         public string? CategoryName { get; set; }
