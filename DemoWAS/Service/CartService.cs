@@ -1,4 +1,4 @@
-﻿using DemoWAS.DTO;
+﻿using SherdProject.DTO;
 
 namespace DemoWAS.Service
 {
@@ -18,6 +18,7 @@ namespace DemoWAS.Service
                 Items.Add(item);
             }
         }
-        public int TotalPrice => Items.Sum(i => i.Price * i.Quantity);
+        public double TotalPrice => Items.Sum(i => i.Price * i.Quantity)+1000;
+        public int Count => Items.Count;
     }
 }
