@@ -1,0 +1,57 @@
+﻿@using DemoWAS.Service
+@using Microsoft.AspNetCore.SignalR.Client
+@inherits LayoutComponentBase
+@inject IJSRuntime js
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+    <div class="footer">
+        <Footer />
+    </div> 
+</div>
+@code{
+    protected override async Task OnAfterRenderAsync(bool firsRander)
+    {
+        if(firsRander)
+        {
+            var response = await UserService.UserOnly();
+        if (!response.IsSuccessStatusCode)
+        {
+            var res = await UserService.RefreshTokin();
+            if (res.IsSuccessStatusCode)
+            {
+                string token = string.Empty; token = await js.InvokeAsync<string>("Fcm.requestAndGetToken");
+                if (!string.IsNullOrEmpty(token))
+                {
+                    var tokenResponse = await UserService.SaveToken(token);
+                    if (!tokenResponse.IsSuccessStatusCode)
+                    {
+                        await js.InvokeVoidAsync("alart", "حدث خطا اثناء حفظ رمز الجهاز");
+                    }
+                }
+            }
+        }
+        else
+        {
+            string token = string.Empty; token = await js.InvokeAsync<string>("Fcm.requestAndGetToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                var tokenResponse = await UserService.SaveToken(token);
+                if (!tokenResponse.IsSuccessStatusCode)
+                {
+                    await js.InvokeVoidAsync("alart", "حدث خطا اثناء حفظ رمز الجهاز");
+                }
+            }
+        }
+        }
+    }
+}

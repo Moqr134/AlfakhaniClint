@@ -1,8 +1,8 @@
-﻿
-using DemoWAS.DTO;
-using DemoWAS.Service;
+﻿using DemoWAS.Service;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
+using SherdProject.DTO;
 using System.Net.Http.Json;
 
 namespace DemoWAS.Layout
@@ -12,22 +12,39 @@ namespace DemoWAS.Layout
         [Inject]
         private IUserService UserService { get; set; } = default!;
         [Inject]
-        private NavigationManager navigationManager { get; set; }= default!;
+        private NavigationManager navigationManager { get; set; } = default!;
         [Inject]
-        private IJSRuntime jS { get; set; }
-        private UserOut userOut = new();
-        protected override async Task OnInitializedAsync()
+        private IJSRuntime jS { get; set; } = default!;
+        [Inject] private UserInfoService UserInfoService { get; set; } = default!;
+        private UserOut? userOut = new UserOut();
+        private HubConnection? _hub;
+        private readonly List<string> _messages = new();
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            var response = await UserService.GetUserInfo();
-            if (response.IsSuccessStatusCode)
+            if (firstRender)
             {
-                var userOutTask = response.Content.ReadFromJsonAsync<UserOut>();
-                if (userOutTask != null)
+                if (UserInfoService.UserOut.Id != 0)
                 {
-                    var result = await userOutTask;
-                    if (result != null)
+                    _hub = new HubConnectionBuilder()
+                    //.WithUrl("https://api.alfakhani.com/notificationhub")
+                    .WithUrl("https://alfakhaniapi.premiumasp.net/notificationhub")
+                    //.WithUrl("https://localhost:7292/notificationhub")
+                    .Build();
+
+                    _hub.On<string>("ReceiveNotification", async message =>
                     {
-                        userOut = result;
+                        _messages.Add(message);
+                        await jS.InvokeVoidAsync("alartNotification", message);
+                    });
+
+                    await _hub.StartAsync();
+                }
+                else
+                {
+                    var response = await UserService.UserOnly();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        navigationManager.NavigateTo("/");
                     }
                 }
             }
@@ -37,6 +54,9 @@ namespace DemoWAS.Layout
             var response = await UserService.Logout();
             if (response.IsSuccessStatusCode)
             {
+                userOut = null;
+                UserInfoService.UserOut = new UserOut();
+                StateHasChanged();
                 navigationManager.NavigateTo("/login");
             }
             else

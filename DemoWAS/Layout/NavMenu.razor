@@ -1,33 +1,46 @@
 ﻿<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">مطعم أونلاين</a>
+    @* <div class="container-fluid"  > *@
+    <div class="container-fluid"  style="margin-bottom: -10px; margin-top:-10px;" > 
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="images/AlFkhaniLogo.jpg" alt="شعار الفاكهاني" style="width:70px;height:auto;" class="me-2 rounded-circle"> 
+            @* <span class="brand-text fw-bold">متجر اونلاين</span> *@
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house-door me-1"></i> الرئيسية</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/menu"><i class="bi bi-list-ul me-1"></i> المنيو</a>
+                    <a class="nav-link" href="/menu"><i class="bi bi-list-ul me-1"></i> الاصناف والمنتجات</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="bi bi-envelope me-1"></i> تواصل معنا</a>
+                    <a class="nav-link" href="/ordars"><i class="bi bi-bag-check me-1"></i> طلباتك</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/" @onclick="Logout"><i class="bi bi-box-arrow-right"></i> <span class="d-inline">تسجيل الخروج</span></a>
-                </li>
-                @if (userOut.Role != "User")
+                <ul class="navbar-nav ms-auto">
+                @if (UserInfoService.UserOut.Id != 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> <span class="d-inline">لوحة التحكم</span></a>
+                        <a class="nav-link" @onclick="Logout"><i class="bi bi-box-arrow-right"></i> <span class="d-inline">تسجيل الخروج</span></a>
+                    </li>
+                    @if (UserInfoService.UserOut.Role != "User")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> <span class="d-inline">لوحة التحكم</span></a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> <span class="d-inline">تسجيل الدخول</span></a>
                     </li>
                 }
             </ul>
+            
         </div>
     </div>
 </nav>
