@@ -1,0 +1,53 @@
+﻿@page "/notification"
+@layout MainLayout
+<h2 class="mb-4 text-center">🔔 الإشعارات</h2>
+
+<!-- إشعار -->
+@if(Notifecations==null||!Notifecations.Any())
+{
+    <div class="text-center">
+        <p class="text-muted">لا توجد إشعارات جديدة.</p>
+    </div>
+}
+else
+{
+    @foreach (var notification in Notifecations)
+    {
+        if (notification.Stutes == "InProgress")
+        {
+            <div class="notification-card">
+                <i class="bi bi-check-circle-fill notification-icon"></i>
+                <div class="notification-content">
+                    <h3 class="notification-title">@notification.Title</h3>
+                    <strong>تم تأكيد طلبك بنجاح!</strong>
+                    <div class="notification-time">@notification.CreatedAt.ToShortTimeString()</div>
+                </div>
+                <button class="delete-btn" @onclick="() => DeleteNotif(notification.Id)" title="حذف الإشعار"><i class="bi bi-trash-fill"></i></button>
+            </div>
+        }
+        else if (notification.Stutes == "Completed")
+        {
+            <div class="notification-card">
+                <i class="bi bi-truck notification-icon"></i>
+                <div class="notification-content">
+                    <h3 class="notification-title">@notification.Title</h3>
+                    <strong>طلبك قيد التوصيل الآن.</strong>
+                    <div class="notification-time">@notification.CreatedAt.ToShortTimeString()</div>
+                </div>
+                <button class="delete-btn" @onclick="()=>DeleteNotif(notification.Id)" title="حذف الإشعار"><i class="bi bi-trash-fill"></i></button>
+            </div>
+        }
+        else if (notification.Stutes == "Cancelled")
+        {
+            <div class="notification-card">
+                <i class="bi bi-x-circle-fill notification-icon text-danger"></i>
+                <div class="notification-content">
+                    <h3 class="notification-title">@notification.Title</h3>
+                    <strong>تم إلغاء طلبك بسبب @notification.RefuseReason.</strong>
+                    <div class="notification-time">@notification.CreatedAt.ToShortTimeString()</div>
+                </div>
+                <button class="delete-btn" @onclick="() => DeleteNotif(notification.Id)" title="حذف الإشعار"><i class="bi bi-trash-fill"></i></button>
+            </div>
+        }
+    }
+}

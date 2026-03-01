@@ -1,0 +1,38 @@
+﻿@page "/checkout"
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h2><i class="bi bi-truck"></i> معلومات التوصيل</h2>
+            <p>يرجى إدخال معلومات الاتصال والعنوان لإتمام الطلب</p>
+        </div>
+
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">الاسم الكامل</label>
+                <input type="text" @bind="billsDto.Name" class="form-control" id="name" placeholder="ادخل اسمك الكامل" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">رقم الهاتف</label>
+                <input type="tel" @bind="billsDto.PhoneNamper" class="form-control" id="phone" placeholder="مثال: 07700000000" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">العنوان التفصيلي</label>
+                <textarea class="form-control" @bind="billsDto.Location" id="address" rows="3" placeholder="ادخل عنوان التوصيل (مثال: بغداد، حي الجامعة، قرب مسجد كذا)" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="notes" class="form-label">ملاحظات إضافية (اختياري)</label>
+                <textarea class="form-control" @bind="billsDto.Description" id="notes" rows="2" placeholder="أي ملاحظات خاصة بالتوصيل أو الطلب"></textarea>
+            </div>
+
+            <div class="text-center">
+                <button @onclick="AddBills" type="button" class="btn btn-warning w-100 fw-bold">
+                    <i class="bi bi-bag-check"></i> تأكيد الطلب
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+

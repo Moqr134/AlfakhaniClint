@@ -1,10 +1,11 @@
 ﻿@page "/login"
 <div class="login-box text-start">
+    <img class="user rounded-circle" src="images/AlFkhaniLogo.jpg" height="100" width="100">
     <h2 class="mb-4 text-center" style="color:#d4fcdc">تسجيل الدخول</h2>
     <form>
         <div class="mb-3">
-            <label for="email" class="form-label">البريد الإلكتروني</label>
-            <input type="email" @bind="user.Email" class="form-control" id="email" placeholder="example@email.com">
+            <label for="email" class="form-label">اسم المستخدم</label>
+            <input type="email" @bind="user.Username" class="form-control" id="email" placeholder="your name">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">كلمة المرور</label>
@@ -15,7 +16,8 @@
         </div>
     </form>
     <div class="links text-start mt-3">
-        <a href="#">نسيت كلمة المرور؟</a><br>
         <a href="regester">إنشاء حساب جديد</a>
+        <br />
+        <a href="/">المتابعة بدون تسجيل الدخول</a>
     </div>
 </div>

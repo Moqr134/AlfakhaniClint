@@ -1,0 +1,60 @@
+﻿@page "/product/{id:int}"
+@layout MainLayout
+<section class="product-details py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-4" style="background-color:#1E402F; color:#fff;">
+                    <div class="row g-0">
+
+                        <div class="col-md-6 text-center">
+                            <img src="https://api.alfakhani.com/@Item.ItemImage"
+                                 alt="@Item.ItemName"
+                                 class="img-fluid rounded-start h-100 object-fit-cover"
+                                 style="width:300px;height:300px;object-fit:cover;">
+                        </div>
+
+                        <div class="col-md-6 p-4">
+                            <h2 class="mb-3">@Item.ItemName</h2>
+                            <h4 class="text-warning mb-3">السعر: @price دينار</h4>
+
+                            <div class="mb-3 text-warning">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+
+                            <p class="mb-4 text-light">
+                                @Item.Description
+                            </p>
+                            @if(Item.Sizes != null && Item.Sizes.Count != 0)
+                            {
+                                <div class="mb-4">
+                                    <label for="Size" class="form-label fw-bold">الأحجم المتوفرة</label>
+                                    <ul class="list-unstyled d-flex flex-wrap gap-2">
+                                        @foreach (var size in Item.Sizes)
+                                        {
+                                            <li>
+                                                <button class="btn btn-outline-light" @onclick="()=>{
+                                                    price = size.Price;
+                                                }">
+                                                    @size.Name 
+                                                </button>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-danger">لا توجد أحجام متاحة لهذا المنتج.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

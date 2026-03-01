@@ -16,14 +16,36 @@
           <label for="price" class="form-label">السعر (د.ع)</label>
           <input type="number" class="form-control" @bind="item.Price" id="price" placeholder="مثال: 9000">
         </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">اختر نوع المنتج</label>
+                <select class="form-select" @bind="item.Type" id="category">
+                    <option value="x" disabled selected>اختر الفئة</option>
+                    <option value="Default">عادي</option>
+                    <option value="weight">وزني</option>
+                </select>
+            </div>
         <div class="mb-3">
           <label for="category" class="form-label">اختر الفئة</label>
           <select class="form-select" @bind="item.CategoryId" id="category">
+            <option value="0" disabled selected>اختر الفئة</option>
             @foreach (var category in Categories)
             {
               <option @key="@category.Id" value="@category.Id">@category.CategoryName</option>
             }
-                </select>
+            </select>
+        </div>
+        <div class="form-check form-switch mb-3">
+                @if (item.Shwoing)
+                {
+                    <input class="form-check-input" @onchange="OnSwitchCange" type="checkbox" role="switch" id="switchCheckChecked" checked>
+                    <label class="form-check-label" for="switchCheckChecked">اظهار العنصر في صفحة المنتجات</label>
+                }
+                else
+                {
+                    <input class="form-check-input" @onchange="OnSwitchCange" type="checkbox" role="switch" id="switchCheckChecked">
+                    <label class="form-check-label" for="switchCheckChecked">اظهار العنصر في صفحة المنتجات</label>
+                }
+
         </div>
         <div class="mb-3">
           <label for="imageFile" class="form-label">تحميل صورة الطبق</label>

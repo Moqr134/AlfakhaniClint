@@ -2,41 +2,66 @@
 @using DemoWAS.Service
 @layout MainLayout
 @inject CartService CartService
-<div class="cart-container">
+<div id="Cart" class="cart-container container">
     <h1>سلة الطلبات</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>المنتج</th>
-                <th>الكمية</th>
-                <th>سعر الوحدة</th>
-                <th>الإجمالي</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if(CartService.Items.Count == 0)
-            {
+    <div class="table-responsive">
+        <table class="table align-middle text-center">
+            <thead>
                 <tr>
-                    <td colspan="4" class="text-center">لا توجد عناصر في السلة</td>
+                    <th>المنتج</th>
+                    <th>الكمية</th>
+                    <th>سعر الوحدة</th>
+                    <th>الإجمالي</th>
+                    <th>إجراءات</th>
                 </tr>
-            }
-            else
-            {
-                @foreach (var item in CartService.Items)
+            </thead>
+            <tbody>
+                @if (CartService.Items.Count == 0)
                 {
                     <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.Price د.ع</td>
-                        <td>@item.TotalPrice د.ع</td>
+                        <td colspan="5" class="text-center">لا توجد عناصر في السلة</td>
                     </tr>
                 }
-            }
-            <tr>
-                <td colspan="3" style="text-align: right;">المجموع الكلي:</td>
-                <td>@CartService.TotalPrice د.ع</td>
-            </tr>
-        </tbody>
-    </table>
-    <button class="btn-checkout">إتمام الطلب</button>
+                else
+                {
+                    @foreach (var item in CartService.Items)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <button @onclick="() => DecrementQuantity(item)" class="btn btn-sm btn-warning">-</button>
+                                    @if(item.Type=="weight")
+                                    {
+                                        <span class="mx-2">@item.Quantity kg</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="mx-2">@item.Quantity</span>
+                                    }
+                                    <button @onclick="() => IncrementQuantity(item)" class="btn btn-sm btn-success">+</button>
+                                </div>
+                            </td>
+                            <td>@item.Price د.ع</td>
+                            <td>@item.TotalPrice د.ع</td>
+                            <td>
+                                <button @onclick="() => RemoveItem(item)" class="btn btn-sm btn-danger">
+                                    🗑 حذف
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                <tr class="last-chaild">
+                    <td colspan="4" class="text-start fw-bold">المجموع الكلي + سعر التوصيل:</td>
+                    <td class="fw-bold text-warning">@CartService.TotalPrice د.ع</td>
+                </tr>
+                <tr class="last-chaild">
+                    <td colspan="3" class="text-center">ملاحظة: قد يختلف سعر التوصيل حسب عنوان الطلب</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button @onclick="NavigateToCheckOut" class="btn-checkout">إتمام الطلب</button>
 </div>
+

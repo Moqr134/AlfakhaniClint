@@ -1,0 +1,59 @@
+﻿@page "/ordarsmangmant"
+@layout MainLayout
+<h2 class="mb-4 text-center">📋 إدارة الطلبات</h2>
+
+@if(IsLoading==true)
+{
+    <div class="alert alert-info text-center">
+        لا توجد طلبات حالياً.
+    </div>
+}else if(BillsList == null || !BillsList.Any())
+{
+    <div class="alert alert-info text-center">
+        لا توجد طلبات حالياً.
+    </div>
+}
+else
+{
+@foreach (var ordar in BillsList)
+{
+    <div class="admin-order-card">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h5>الطلب رقم #@ordar.Id</h5>
+                <p class="mb-1">الوقت:@ordar.Date.ToString()</p>
+                <p class="mb-1">الاسم:@ordar.Name</p>
+                <p class="mb-1">الهاتف:@ordar.PhoneNamper</p>
+                <p class="mb-1">العنوان:@ordar.Location</p>
+                <p class="mb-1">ملاحظات:@ordar.Description</p>
+                <p class="mb-1">العناصر:</p>
+                @foreach (var item in ordar.BillsItems)
+                {
+                    <div class="order-item">
+                        <span>@item.ItemName×@item.Quantity</span>
+                    </div>
+                }
+                <p class="mb-1">المجموع:@ordar.TotalAmount د.ع</p>
+                @if (ordar.Status == "Waiting")
+                {
+                    <p class="mb-1 text-success">الحالة: <strong>قيد الانتظار</strong></p>
+                }
+                else if (ordar.Status == "InProgress")
+                {
+                    <p class="mb-1 text-warning">الحالة: <strong>قيد المعالجة</strong></p>
+                }
+                else if (ordar.Status == "Completed")
+                {
+                    <p class="mb-1 text-success">الحالة: <strong>مكتمل</strong></p>
+                }
+                    <button @onclick="()=>ChangeStatus(ordar)" class="btn btn-outline-light status-btn"><i class="bi bi-arrow-repeat"></i> تغيير الحالة</button>
+                    <button @onclick="()=>OpenRefuseModal(ordar.Id)" class="btn btn-outline-light status-btn"><i class="bi bi-arrow-repeat"></i>رفض الطلب</button>
+                    <div id="@ordar.Id" style="display:none">
+                        <input type="text" placeholder="ادخل سبب الرفض" @bind="refuseReason" class="form-control" />
+                        <button @onclick="() => RefuseOrder(ordar)" class="btn btn-danger">رفض</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+}
+}

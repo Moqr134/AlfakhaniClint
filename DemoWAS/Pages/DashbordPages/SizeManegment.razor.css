@@ -1,0 +1,22 @@
+﻿.form-container {
+    background: linear-gradient(145deg, #1e4030, #163027);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: auto;
+}
+
+.form-label {
+    color: #EAD196;
+}
+
+.btn-submit {
+    background-color: #EAD196;
+    color: #1E402F;
+    font-weight: bold;
+}
+
+    .btn-submit:hover {
+        background-color: #d4b76c;
+        color: white;
+    }

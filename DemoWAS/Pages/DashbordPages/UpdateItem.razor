@@ -24,6 +24,19 @@
                     }
                 </select>
             </div>
+            <div class="form-check form-switch mb-3">
+                @if (item.Shwoing)
+                {
+                    <input class="form-check-input" @onchange="OnSwitchCange" type="checkbox" role="switch" id="switchCheckChecked" checked>
+                    <label class="form-check-label" for="switchCheckChecked">اظهار العنصر في صفحة المنتجات</label>
+                }
+                else
+                {
+                    <input class="form-check-input" @onchange="OnSwitchCange" type="checkbox" role="switch" id="switchCheckChecked">
+                    <label class="form-check-label" for="switchCheckChecked">اظهار العنصر في صفحة المنتجات</label>
+                }
+
+            </div>
             <div class="mb-3">
                 <label for="imageFile" class="form-label">تحميل صورة الطبق</label>
                 <InputFile class="form-control" OnChange="ImageSelected" id="imageFile" accept="image/*"></InputFile>

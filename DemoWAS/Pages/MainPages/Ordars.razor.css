@@ -1,0 +1,35 @@
+﻿.order-card {
+    background-color: #1E1E1E;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.order-status {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-pending {
+    color: #f0ad4e;
+}
+
+.status-delivered {
+    color: #5cb85c;
+}
+
+.status-cancelled {
+    color: #d9534f;
+}
+
+ul {
+    margin-bottom: 10px;
+    padding-right: 20px;
+}
+
+.actions button {
+    margin-left: 10px;
+}

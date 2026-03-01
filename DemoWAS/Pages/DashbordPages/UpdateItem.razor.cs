@@ -1,8 +1,8 @@
-﻿using DemoWAS.DTO;
-using DemoWAS.Service;
+﻿using DemoWAS.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using SherdProject.DTO;
 using System.Net.Http.Json;
 
 namespace DemoWAS.Pages.DashbordPages
@@ -15,8 +15,8 @@ namespace DemoWAS.Pages.DashbordPages
         private ItemDto item { get; set; } = new ItemDto();
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
         private List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
+        private IBrowserFile File { get; set; } = default!;
         [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-
         protected override async Task OnInitializedAsync()
         {
             var requst = await CategoryService.GetCategories();
@@ -54,18 +54,19 @@ namespace DemoWAS.Pages.DashbordPages
                 await JSRuntime.InvokeVoidAsync("alartError", "Failed to load Item.");
             }
         }
+        private void OnSwitchCange()
+        {
+            if (item.Shwoing)
+                item.Shwoing = false;
+            else item.Shwoing = true;
+        }
         private async Task ImageSelected(InputFileChangeEventArgs e)
         {
-            var fileformat = "image/png";
-            var file = await e.File.RequestImageFileAsync(fileformat, 300, 300);
-            var filebytes = new byte[file.Size];
-            await file.OpenReadStream().ReadAsync(filebytes);
-            var imageBase64 = $"data:{fileformat};base64,{Convert.ToBase64String(filebytes)}";
-
-            if (file != null && file.Size > 0)
+            if (e.File != null && e.File.Size > 0)
             {
-                item.ItemImage = imageBase64;
-                item.ImageContentType = file.ContentType;
+                item.ItemImage = e.File.Name;
+                item.ImageContentType = e.File.ContentType;
+                File = e.File;
             }
             else
             {
@@ -78,7 +79,7 @@ namespace DemoWAS.Pages.DashbordPages
             if (item.CategoryId == 0) item.CategoryId = Categories[0].Id;
             if (item != null && !string.IsNullOrWhiteSpace(item.ItemName) && item.Price > 0 && !string.IsNullOrEmpty(item.Description))
             {
-                var response = await ItemService.UpdateItem(item);
+                var response = await ItemService.UpdateItem(item,File);
                 string massege = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {

@@ -23,6 +23,40 @@
     vertical-align: middle;
 }
 
+.loading {
+    width: 100%; /* يحتل عرض الصفحة */
+    display: flex;
+    justify-content: center; /* يخلي العنصر بالنص عرضًا */
+    margin-top: 50px; /* مسافة من الأعلى (تقدر تغيرها) */
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e5e7eb;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .table img {
     width: 60px;
     height: 60px;

@@ -1,7 +1,7 @@
-﻿using DemoWAS.DTO;
-using DemoWAS.Service;
+﻿using DemoWAS.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using SherdProject.DTO;
 namespace DemoWAS.Pages.AccountPages;
 
 public partial class Login
@@ -14,7 +14,7 @@ public partial class Login
     private IJSRuntime js { get; set; } = default!;
 
     private UserModel user = new();
-    protected async override void OnInitialized()
+    protected override async void OnInitialized()
     {
         var response = await userService.UserOnly();
         if (response.IsSuccessStatusCode)
@@ -30,8 +30,17 @@ public partial class Login
     {
         try
         {
+            if (string.IsNullOrEmpty(user.Username))
+            {
+                await js.InvokeVoidAsync("alartError", "يرجى إدخال اسم المستخدم.");
+                return;
+            }else if (string.IsNullOrEmpty(user.Password))
+            {
+                await js.InvokeVoidAsync("alartError", "يرجى إدخال كلمة المرور.");
+                return;
+            }
             var response = await userService.Login(user);
-
+            string message = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
                 await js.InvokeVoidAsync("alart", "تم تسجيل الدخول بنجاح!");
@@ -39,7 +48,7 @@ public partial class Login
             }
             else
             {
-                await js.InvokeVoidAsync("alart", "فشل تسجيل الدخول. يرجى التحقق من اسم المستخدم وكلمة المرور.");
+                await js.InvokeVoidAsync("alart", message);
             }
         }
         catch (Exception ex)

@@ -1,0 +1,35 @@
+﻿.notification-card {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+}
+
+.notification-icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    color: #ffc107;
+}
+
+.notification-content {
+    flex-grow: 1;
+}
+
+.notification-time {
+    font-size: 0.85rem;
+    color: #bbb;
+}
+.delete-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+    .delete-btn:hover {
+        color: #ff6b6b;
+    }

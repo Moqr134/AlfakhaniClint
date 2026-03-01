@@ -1,11 +1,17 @@
-﻿
-.hero-section {
+﻿.hero-section {
     background-color: #121212;
     color: white;
     text-align: center;
-    padding: 120px 20px;
+    padding: 80px 20px;
     animation: slideUp 1.5s ease;
 }
+
+    .hero-section .hero-image {
+        max-width: 200px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
 
 @keyframes slideUp {
     from {

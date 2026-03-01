@@ -1,45 +1,119 @@
 ﻿@page "/menu"  
+@using System.Threading
 @layout MainLayout  
-<div class="container">  
-    <h1>قائمة الطعام</h1>  
-
-    <!-- قسم الأطباق الرئيسية -->  
-    @foreach(var category in Categoris)
-    {
-        <section class="menu-section">
-            <h2 class="text-center mb-4">@category.CategoryName</h2>
-            <div class="row g-4">
-                @if (Items.Count == 0)
+@if(IsLoading)
+{
+    <p class="text-center">جاري تحميل البيانات...</p>
+}
+else
+{
+<div class="container"> 
+    <h1>قائمة المنتجات</h1>  
+    <section class="category-bar py-3">
+    <div class="container">
+        @if (categoryDtos is not null && categoryDtos.Count != 0)
+        {
+            <div class="d-flex flex-nowrap overflow-auto gap-2" role="group" aria-label="فلترة حسب التصنيف">
+                @foreach (var category in categoryDtos)
                 {
-                    <p class="card-text">لا توجد وجبات لعرضها حاليا</p>
+                    <button type="button"
+                            @onclick="() => OnCategoryChange(category.Id)"
+                            class="btn btn-outline-light btn-category flex-shrink-0">
+                        @category.CategoryName
+                    </button>
+                }
+            </div>
+        }
+        else
+        {
+            <a class="btn btn-outline-light btn-category active" href="#">لا توجد تصنيفات لعرضها</a>
+        }
+    </div>
+</section>
+    <section class="menu-section">
+    <div class="row g-4">
+        @if(LodingItems)
+                {
+                    <p class="text-center">جاري تحميل الوجبات...</p>
                 }
                 else
                 {
-                    foreach (var item in Items)
-                    {
-                        if (item.CategoryId == category.Id)
-                        {
-                            <div class="col-md-4">
-                                <div class="card menu-card">
-                                    <img src="@item.ItemImage" alt="طبق رئيسي">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@item.ItemName</h5>
-                                        <p class="card-text">@item.Description</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="price">@item.Price د.ع</span>
-                                            <button @onclick="() => Add(item)" class="btn add-btn">أضف للسلة</button>
-                                        </div>
-                                    </div>
-                                </div>
+                @if (Items == null || Items.Count == 0)
+        {
+            <p class="card-text">لا توجد وجبات لعرضها حاليا</p>
+        }
+        else
+        {
+            @foreach (var Item in Items)
+            {
+                <div class="col-md-4">
+                    <div class="card menu-card">
+                        <img @onclick="() => NavigateToProduct(Item.Id)" src="https://api.alfakhani.com/@Item.ItemImage"  loading="lazy" alt="طبق رئيسي">
+                        <div class="card-body">
+                            <h5 class="card-title">@Item.ItemName</h5>
+                            <p class="card-text text-truncate">@Item.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">@Item.Price د.ع</span>
+                                
+                                @if (Item.Sizes != null && Item.Sizes.Count != 0)
+                                {
+                                    <select id="Size" 
+                                            @onchange="(e) => {
+                                                SelectedSizeId = Convert.ToInt32(e.Value);
+                                                var selectedSize = Item.Sizes?.Find(s => s.Id == SelectedSizeId);
+                                                if (selectedSize != null)
+                                                {
+                                                    Item.Price = selectedSize.Price;
+                                                }
+                                            }" 
+                                            class="form-select-sm custom-select-style">
+                                        <option value="0" disabled selected>اختر الحجم</option>
+                                        @foreach (var size in Item.Sizes)
+                                        {
+                                            <option value="@size.Id">@size.Name</option>
+                                        }
+                                                </select>
+                                            }
+                                            else if(Item.Type == "weight")
+                                            {
+                                                <select id="weight" 
+                                                        @onchange="(e) => {
+                                                            if (e.Value is not null){
+                                                                WightQuantity = double.Parse(e.Value.ToString(),System.Globalization.CultureInfo.InvariantCulture);
+                                                            }
+                                                        }" 
+                                                        class="form-select-sm custom-select-style">
+                                                    <option value=0 disabled selected>اختر الوزن</option>
+                                                    <option value=0.125>نص ربع كيلو</option>
+                                                    <option value=0.250>ربع كيلو</option>
+                                                    <option value=0.500>نص كيلو</option>
+                                                    <option value="1">كيلو</option>
+                                                </select>
+                                            }
+
+                                <button @onclick="() => Add(Item)" class="btn add-btn">أضف للسلة</button>
                             </div>
-                        }
-                    }
-                }
-            </div>
-        </section>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        }
+    </div>
+</section>
+</div>
+    @if (!IsDone)
+    {
+    <div class="loading" role="status" aria-live="polite" aria-busy="true">
+        <div class="loader"></div>
+        <span class="sr-only">جارٍ التحميل…</span>
+    </div>
     }
-</div>
-<div @onclick="cart" id="fab-cart" title="اذهب إلى السلة">
-    <i class="bi bi-cart-fill"></i>
-    <div id="fab-counter">@Counter</div>
-</div>
+}
+@if(CartService.Count != 0)
+{
+    <div @onclick="cart" id="fab-cart" title="اذهب إلى السلة">
+        <i class="bi bi-cart-fill"></i>
+        <div id="fab-counter">@CartService.Count</div>
+    </div>
+}

@@ -1,0 +1,20 @@
+﻿@page "/sizemanegment/{id:int}"
+<div class="container">
+    <div class="form-container">
+        <h3 class="text-center mb-4"><i class="bi bi-plus-circle"></i> تعديل بيانات حجم الطبق</h3>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">اسم الحجم</label>
+                <input type="text" @bind="SizeDto.Name" class="form-control" id="name" placeholder="مثال: كبير">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">السعر (د.ع)</label>
+                <input type="number" @bind="SizeDto.Price" class="form-control" id="price" placeholder="مثال: 9000">
+            </div>
+            <div class="text-center">
+                <button type="button" @onclick="AddNewSize" class="btn btn-submit px-5">اضافة الحجم</button>
+                <button type="button" @onclick="DeleteSize" class="btn btn-danger px-5">حذف الحجم</button>
+            </div>
+        </form>
+    </div>
+</div>

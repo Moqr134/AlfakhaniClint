@@ -1,9 +1,14 @@
 ﻿@page "/menumanagement"
 @layout MainLayout
+@implements IAsyncDisposable
 <div class="container">
     <div class="page-header">
         <h2><i class="bi bi-basket"></i> إدارة قائمة الطعام</h2>
         <button @onclick="AddItem" class="btn btn-add mt-3"><i class="bi bi-plus-circle"></i> إضافة طبق جديد</button>
+    </div>
+    <div>
+        <input type="text" class="form-control mb-3" @bind="Search" placeholder="ابحث عن مستخدم..." />
+        <button @onclick="SerchItemByName" class="btn btn-primary mb-3"><i class="bi bi-search"></i>بحث عن طريق الاسم</button>
     </div>
     <div class="table-responsive">
         <table class="table table-dark table-hover text-center align-middle">
@@ -22,11 +27,12 @@
                     foreach (var item in items)
                     {
                         <tr>
-                            <td><img src="@item.ItemImage" alt="@item.ItemName"></td>
+                            <td><img src="https://api.alfakhani.com/@item.ItemImage" alt="@item.ItemName"></td>
                             <td>@item.ItemName</td>
                             <td>@item.Description</td>
                             <td>@item.Price د.ع</td>
                             <td class="action-btns">
+                                <button @onclick="() => AddSize(item.Id)" class="btn btn-sm btn-outline-light"><i class="bi bi-plus-square"></i></button>
                                 <button @onclick="()=>UpdateItem(item.Id)" class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></button>
                                 <button @onclick="()=>DeleteItem(item.Id)" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                             </td>
@@ -37,6 +43,15 @@
                 {
                     <tr>
                         <td colspan="5">لا توجد أطباق في القائمة.</td>
+                    </tr>
+                }
+                @if (!IsDone)
+                {
+                    <tr>
+                        <div class="loading" role="status" aria-live="polite" aria-busy="true">
+                            <div class="loader"></div>
+                            <span class="sr-only">جارٍ التحميل…</span>
+                        </div>
                     </tr>
                 }
             </tbody>

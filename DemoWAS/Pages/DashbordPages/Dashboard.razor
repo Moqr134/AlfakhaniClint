@@ -2,23 +2,30 @@
 @layout MainLayout
 <div class="container">
     <div class="dashboard-header">
-      <h1><i class="bi bi-speedometer2"></i> لوحة تحكم المطعم</h1>
+      <h1><i class="bi bi-speedometer2"></i> لوحة تحكم الفاكهاني</h1>
       <p class="mt-2">مرحباً بك، مدير النظام 👋</p>
     </div>
 </div>
 
     <div class="row text-center g-4">
-      @if(@IsManager)
+      @if(UserInfoService.UserOut.Role=="Maneger")
       {
-        <div class="col-md-4">
+        <div @onclick="NavToUserMangment" class="col-md-4">
             <div class="card p-4">
                 <div class="card-icon"><i class="bi bi-people"></i></div>
                 <h4 class="card-title">المستخدمون</h4>
                 <p class="card-text">إدارة المستخدمين والتحكم بصلاحياتهم.</p>
             </div>
         </div>
+        <div @onclick="NavToBillsMangment" class="col-md-4">
+            <div class="card p-4">
+                <div class="card-icon"><i class="bi bi-file-earmark-text"></i></div>
+                <h4 class="card-title">سجل الطلبات</h4>
+                <p class="card-text">رؤية سجل الطلبات الكامل</p>
+            </div>
+        </div>
       }
-      <div class="col-md-4">
+    <div @onclick="NavToOrderMangment" class="col-md-4">
         <div class="card p-4">
           <div class="card-icon"><i class="bi bi-card-list"></i></div>
           <h4 class="card-title">الطلبات</h4>
@@ -32,11 +39,11 @@
                 <p class="card-text">إضافة، تعديل، أو حذف الأطباق.</p>
             </div>
       </div>
-      <div class="col-md-4">
+      <div @onclick="NavToCategoryMangment" class="col-md-4">
         <div class="card p-4">
-          <div class="card-icon"><i class="bi bi-gear"></i></div>
-          <h4 class="card-title">الإعدادات</h4>
-          <p class="card-text">تعديل إعدادات النظام والمطعم.</p>
+            <div class="card-icon"><i class="bi bi-grid"></i></div>
+          <h4 class="card-title">الاصناف</h4>
+            <p class="card-text">إضافة، تعديل، أو حذف الاصناف.</p>
         </div>
       </div>
     </div>

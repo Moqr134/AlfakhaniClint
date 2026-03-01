@@ -1,11 +1,19 @@
 ﻿@page "/home"
-@layout MainLayout
-
+@layout HomeLayout
+@using DemoWAS.Layout
+@using Microsoft.AspNetCore.SignalR.Client
+@using System.Net
+@using DemoWAS.Service
+@using SherdProject.DTO
+@inject IJSRuntime js
+@inject NavigationManager NavigationManager
+@inject IUserService UserService
 <section class="hero-section">
     <div class="container">
-        <h1>مرحباً بك في مطعم أونلاين</h1>
-        <p>استمتع بأشهى المأكولات من مطبخنا مباشرة إلى باب منزلك. اطلب الآن بكل سهولة!</p>
-        <a href="#" class="btn btn-order">ابدأ الطلب</a>
+        <img src="images/AlFkhaniLogo.jpg" alt="مطعم أونلاين" class="hero-image">
+        <h1>مرحباً بك في الفاكهاني</h1>
+        <p>الفاكهاني صار بين أيديك بكل مكان. أطلب الان بكل سهولة!</p>
+        <a href="/menu" class="btn btn-order">ابدأ الطلب</a>
     </div>
 </section>
 
@@ -16,7 +24,7 @@
                 <div class="card p-4 h-100">
                     <div class="info-icon"><i class="bi bi-emoji-smile"></i></div>
                     <h3 class="card-title">مكونات طازجة</h3>
-                    <p class="card-text">نستخدم أفضل المكونات الطازجة في كل وجبة لضمان الجودة والطعم الأصيل.</p>
+                    <p class="card-text">نستخدم أفضل المكونات الطازجة في كل منتج لضمان الجودة والطعم الأصيل.</p>
                 </div>
             </div>
             <div class="col-md-4 mb-4">

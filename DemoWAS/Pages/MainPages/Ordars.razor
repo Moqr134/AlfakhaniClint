@@ -1,0 +1,63 @@
+﻿@page "/ordars"
+@layout MainLayout
+<h2 class="mb-4 text-center">🧾 طلباتك السابقة</h2>
+
+@if(bills.Count==0)
+{
+    <div class="order-card">
+        <div class="d-flex justify-content-between align-items-start">
+            <h5>ليس هناك اي طلبات معلقة</h5>
+        </div>
+    </div>
+}
+else
+{
+    @foreach(var bill in bills)
+    {
+        <div class="order-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5>الطلب رقم #@bill.Id</h5>
+                    <p class="mb-1">التاريخ:@bill.Date.ToString()</p>
+                    <p class="mb-1">العناصر:</p>
+                    <ul>
+                        @if(bill.BillsItems == null || !bill.BillsItems.Any())
+                        {
+                            <li>لا توجد عناصر في هذا الطلب</li>
+                        }
+                        else
+                        {
+                            @foreach (var item in bill.BillsItems)
+                            {
+                                <li>@item.ItemName</li>
+                            }
+                        }
+                    </ul>
+                    <p class="mb-1">المجموع: @bill.TotalAmount د.ع</p>
+                    @if(bill.Status =="Waiting")
+                    {
+                        <div class="actions mt-2">
+                            <button @onclick="()=>CancleOrder(bill)" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i> إلغاء</button>
+                        </div>
+                    }
+                </div>
+                @if (bill.Status == "Waiting")
+                {
+                    <div class="order-status status-pending">
+                        <i class="bi bi-clock-history"></i> قيد الانتظار
+                    </div>
+                }else if (bill.Status == "InProgress")
+                {
+                    <div class="order-status status-delivered">
+                        <i class="bi bi-check-circle-fill"></i> قيد المعالجة
+                    </div>
+                }else if(bill.Status == "Completed")
+                {
+                    <div class="order-status status-completed">
+                        <i class="bi bi-check-circle-fill"></i> مكتمل
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

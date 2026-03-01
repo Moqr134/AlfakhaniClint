@@ -8,6 +8,7 @@ namespace DemoWAS.Pages.DashbordPages
     {
         [Inject] private IUserService UserService { get; set; } = default!;
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] private UserInfoService UserInfoService { get; set; } = default!;
         [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
         private bool IsManager { get; set; } = false;
         protected override async Task OnInitializedAsync()
@@ -24,9 +25,25 @@ namespace DemoWAS.Pages.DashbordPages
                 IsManager = newResponse.IsSuccessStatusCode;
             }
         }
-        private  void NavToMenuMangment()
+        private void NavToMenuMangment()
         {
             NavigationManager.NavigateTo("/menumanagement");
+        }
+        private void NavToCategoryMangment()
+        {
+            NavigationManager.NavigateTo("/categorymanagement");
+        }
+        private void NavToUserMangment()
+        {
+            NavigationManager.NavigateTo("/usersmanagement");
+        }
+        private void NavToOrderMangment()
+        {
+            NavigationManager.NavigateTo("/ordarsmangmant");
+        }
+        private void NavToBillsMangment()
+        {
+            NavigationManager.NavigateTo("/ManagerBills");
         }
     }
 }

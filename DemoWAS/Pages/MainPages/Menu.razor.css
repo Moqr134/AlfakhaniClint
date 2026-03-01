@@ -1,9 +1,95 @@
-﻿h1 {
+﻿
+:root {
+    --brand: #1E402F;
+    --brand-2: #265939;
+    --accent: #EAD196;
+}
+h1 {
     text-align: center;
     margin-bottom: 40px;
     font-weight: 700;
     animation: slideDown 1s ease;
 }
+.loading {
+    width: 100%; /* يحتل عرض الصفحة */
+    display: flex;
+    justify-content: center; /* يخلي العنصر بالنص عرضًا */
+    margin-top: 50px; /* مسافة من الأعلى (تقدر تغيرها) */
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e5e7eb;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.custom-select-style {
+    border-radius: 5rem;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    max-width: 150px;
+    background-color: #EAD196;
+}
+.category-bar {
+    background-color: #1E402F; 
+}
+
+.btn-category {
+    border-radius: 25px;
+    white-space: nowrap; 
+}
+
+
+.category-bar .overflow-auto::-webkit-scrollbar {
+    display: none;
+}
+
+.category-bar .overflow-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.category-bar {
+    position: sticky;
+    top: 64px;
+    z-index: 1020;
+    background: #121212;
+    padding: .75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.btn-category {
+    border-color: #2b2b2b !important;
+    color: #fff;
+}
+
+    .btn-category.active, .btn-category:focus, .btn-category:hover {
+        background: #1E402F !important;
+        border-color: #1E402F !important;
+    }
+    .custom-select-style:focus {
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
 @keyframes slideDown {
     from {
         transform: translateY(-30px);
@@ -85,14 +171,14 @@
 #fab-cart {
     position: fixed;
     bottom: 25px;
-    left: 25px; /* لأن اتجاه الصفحة rtl */
+    left: 25px;
     background-color: #EAD196;
     color: #1E402F;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     font-size: 28px;
@@ -117,7 +203,7 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;

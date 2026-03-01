@@ -1,8 +1,7 @@
-﻿using DemoWAS.DTO;
-using DemoWAS.Service;
+﻿using DemoWAS.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
+using SherdProject.DTO;
 namespace DemoWAS.Pages.AccountPages
 {
     public partial class Regester
@@ -17,33 +16,31 @@ namespace DemoWAS.Pages.AccountPages
         private string? ConformPassword = null;
         private async Task HandelRegestar()
         {
+            if (string.IsNullOrEmpty(user.Username))
+            {
+                await js.InvokeVoidAsync("alartError", "يرجى إدخال اسم المستخدم.");
+                return;
+            }
+            else if (string.IsNullOrEmpty(user.Password))
+            {
+                await js.InvokeVoidAsync("alartError", "يرجى إدخال كلمة المرور.");
+                return;
+            }
             if (user.Password != ConformPassword)
             {
-                await js.InvokeVoidAsync("alart", "Passwords do not match.");
+                await js.InvokeVoidAsync("alart", "تأكيد كلمة المرور لا يطابق كلمة المرور");
                 return;
             }
             var response = await userService.Register(user);
-            if (response.IsSuccessStatusCode)
-            {
-                await js.InvokeVoidAsync("ShowConfirmation");
-            }
-            else
-            {
-                await js.InvokeVoidAsync("alart", "Registration failed. Please try again.");
-            }
-        }
-        private async Task HandelConform()
-        {
-            if(user.code is null)
-            {
-                await js.InvokeVoidAsync("alart", "Please enter a valid code.");
-                return;
-            }
-            var response = await userService.Conform(user);
+            string massege = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
                 await js.InvokeVoidAsync("alart", "تم تأكيد الحساب بنجاح يرجى تسجيل الدخول");
                 nav.NavigateTo("/login");
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alart", massege.ToString());
             }
         }
     }
